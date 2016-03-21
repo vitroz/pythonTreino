@@ -29,6 +29,7 @@
 
 
 #4) Faça um Programa que leia uma lista de 10 caracteres, e diga quantas consoantes foram lidas.
+#Imprima as consoantes.
 
 # listaChar = []
 # consoantes = 0
@@ -40,9 +41,29 @@
 # 		consoantes += 1
 # print(consoantes)
 
-#Imprima as consoantes.
 #5) Faça um Programa que leia 20 números inteiros e armazene-os numa lista. Armazene os números
 #pares na listar PAR e os números IMPARES na lista impar. Imprima os três vetores.
+
+listaPar = []
+listaImpar = []
+listaNumeros = []
+numero = 0
+print('Informe os numeros:')
+for i in range(20):
+	listaNumeros.append((int(input('Numero: ' + str(i+1) + ':\n'))))
+	numero = listaNumeros[i]
+	print (numero)
+	if(numero%2 == 0):
+		listaPar.append(numero)
+	else:
+		listaImpar.append(numero)
+
+print(listaNumeros)
+print(listaPar)
+print(listaImpar)
+
+
+
 #6) Faça um Programa que peça as quatro notas de 10 alunos, calcule e armazene numa lista a média
 #de cada aluno, imprima o número de alunos com média maior ou igual a 7.0.
 #7) Faça um Programa que leia duas listas com 10 elementos cada. Gere uma terceira lista de 20
