@@ -47,7 +47,7 @@
 # print('Lista de Ocorrencias ordenadas: ' + str(ocorrenciasOrdenadas))
 
 # 3) Terceira Questao
-def hbytes(num):
+def hbytes(num): # Funcao que converte bytes para MBytes
     for x in ['bytes','KB','MB','GB']:
         if num < 1024.0:
             return "%1.3f %s" % (num, x)
@@ -61,21 +61,22 @@ total = 0
 pct = 0
 with open('usuarios.txt', 'r') as arquivo:
 	for linha in arquivo:
-		listaUsuarios.append(linha.split())
+		listaUsuarios.append(linha.split()) # Joga em uma lista, uma lista com os usuarios, separados por nome e espaço consumido
 
 	for usuario in listaUsuarios:
 		cont += 1
 		usuario.insert(0,cont) #inserir no começo da lista
-		usuario.append(hbytes(int(usuario[2])))
+		usuario.append(hbytes(int(usuario[2]))) ##indice[2] é a posicao que guarda o espaco consumido 
 		total += int(usuario[2])
 
 	for usuario in listaUsuarios:
 		usuario.append(float(usuario[2])/(total))
-		usuario.append("{:.2%}".format(usuario[4]))
+		usuario.append("{:.2%}".format(usuario[4]))##indice[4] é a posicao que guarda a porcentagem de espaço consumida.
 
 
 numTotal = hbytes(total).split(' ')
 media = float(numTotal[0])/cont*1000
+print(listaUsuarios)
 
 
 with open('relatorio.txt', 'w') as relatorio:
