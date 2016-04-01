@@ -54,11 +54,12 @@ def hbytes(num): # Funcao que converte bytes para MBytes
         num /= 1024.0
     return "%1.3f %s " % (num, 'TB')
 
+def pctDeUso(usuario,total):
+	usuario.append(float(usuario[2])/(total))
+	usuario.append("{:.2%}".format(usuario[4]))##indice[4] é a posicao que guarda a porcentagem de espaço consumida.
+
 listaUsuarios = []
-# Total de Espaço Consumido 2581,56Mb ou 2706979865 bytes
-cont = 0
-total = 0
-pct = 0
+cont = total =  pct = 0
 with open('usuarios.txt', 'r') as arquivo:
 	for linha in arquivo:
 		listaUsuarios.append(linha.split()) # Joga em uma lista, uma lista com os usuarios, separados por nome e espaço consumido
@@ -70,14 +71,10 @@ with open('usuarios.txt', 'r') as arquivo:
 		total += int(usuario[2])
 
 	for usuario in listaUsuarios:
-		usuario.append(float(usuario[2])/(total))
-		usuario.append("{:.2%}".format(usuario[4]))##indice[4] é a posicao que guarda a porcentagem de espaço consumida.
-
+		pctDeUso(usuario,total) #Preciso do valor total antes de calcular a media.
 
 numTotal = hbytes(total).split(' ')
 media = float(numTotal[0])/cont*1000
-print(listaUsuarios)
-
 
 with open('relatorio.txt', 'w') as relatorio:
 	relatorio.write('ACME Inc.                                             Uso do Espaço em disco pelos usuários\n')
@@ -88,7 +85,6 @@ with open('relatorio.txt', 'w') as relatorio:
 
 	relatorio.write('\n\nEspaço Total Ocupado: ' + hbytes(total))
 	relatorio.write('\n\nEspaço médio Ocupado: ' + str(media) + ' MB')
-
 	relatorio.close()
 
 
