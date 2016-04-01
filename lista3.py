@@ -82,8 +82,18 @@ print(str(media) + ' MB')
 
 
 with open('relatorio.txt', 'w') as relatorio:
-	relatorio.write('ACME Inc.                                             Uso do Espaço em disco pelos usuários\n¡½')
-	relatorio.write('-------------------------------------------------------------------------------------------')	
+	relatorio.write('ACME Inc.                                             Uso do Espaço em disco pelos usuários\n')
+	relatorio.write('----------------------------------------------------------------------------------\n')
+	relatorio.write('Nr. Usuario                  Espaço Utilizado            % do uso\n')
+	for usuario in listaUsuarios:
+		relatorio.write(str(usuario[0]) + '            ' + usuario[1] + '       ' +str(usuario[3])+ '                  ' + str(usuario[5]) + '\n')
+
+	relatorio.write('\n\nEspaço Total Ocupado: ' + hbytes(total))
+	relatorio.write('\n\nEspaço médio Ocupado: ' + str(media) + ' MB')
+
+	relatorio.close()
+
+
 
 
 
