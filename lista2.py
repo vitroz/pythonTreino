@@ -1,3 +1,6 @@
+# Python Lista 2
+# Aluno: Vitor Daniel Vieira de Queiroz
+
 # 1) Implementar duas funções:
 # Uma que converta temperatura em graus Celsius para Fahrenheit.
 
