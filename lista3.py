@@ -73,12 +73,9 @@ with open('usuarios.txt', 'r') as arquivo:
 		usuario.append(float(usuario[2])/(total))
 		usuario.append("{:.2%}".format(usuario[4]))
 
-print(listaUsuarios)
-print(hbytes(total))
+
 numTotal = hbytes(total).split(' ')
 media = float(numTotal[0])/cont*1000
-print(hbytes(total).split(' '))
-print(str(media) + ' MB')
 
 
 with open('relatorio.txt', 'w') as relatorio:
