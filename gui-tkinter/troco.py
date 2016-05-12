@@ -8,6 +8,9 @@ from tkinter import *
 import tkinter.messagebox
 
 top = Tk()
+top.wm_title("Calculadora de Troco")
+top.resizable(width=FALSE, height=FALSE)
+top.minsize(width=220, height=150)
 frame = Frame(top)
 frame.pack()
 
@@ -27,6 +30,9 @@ E2.pack()
 def calculaTroco():
 	conta = E1.get()
 	pagamento = E2.get()
+	if(pagamento < conta):
+		tkinter.messagebox.showinfo("Pague mais", 'Ta faltando grana doido')
+		return False			
 
 	caixa = [50,20,10,5,2,1]
 
