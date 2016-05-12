@@ -1,5 +1,5 @@
 # Programa Calcula o Troco ##
-# Eetornando sempre a menor quantidade de notas [50,20,10,5,2,1] possivel. ##
+# Retornando sempre a menor quantidade de notas [50,20,10,5,2,1] possivel. ##
 # Desenvolvido com o python3 ##
 # Autor: Vitor D. Queiroz ##
 
