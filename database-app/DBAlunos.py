@@ -9,7 +9,8 @@ class DBAlunos():
         c.execute("""create table if not exists alunos (
                   idaluno integer primary key autoincrement ,
                   nome text,
-                  nota text
-                  )""")
+                  nota1 text,
+                  nota2 text,
+                  nota3 text)""")
         self.conexao.commit()
         c.close()

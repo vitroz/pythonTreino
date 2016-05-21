@@ -1,5 +1,6 @@
 from Aluno import Alunos
 from tkinter import *
+import tkinter.messagebox
 
 # EVENTOS BOTOES
 
@@ -9,6 +10,7 @@ def destroyFrame(Frame):
 
 def inserirAluno():
 	destroyFrame(topFrame)
+	destroyFrame(footerFrame)
 
 	topFrame.title="Inserir"
 	bntInserir['state'] = 'disabled'
@@ -31,8 +33,6 @@ def inserirAluno():
 	lblNota2.grid(row=3,pady=5)
 	lblNota3.grid(row=4,pady=5)
 
-	lblFooter = Label(footerFrame)
-
 	#INPUTS
 
 	inpNome = Entry(topFrame,textvariable=nome)
@@ -47,6 +47,7 @@ def inserirAluno():
 
 def alterarAluno():
 	destroyFrame(topFrame)
+	destroyFrame(footerFrame)
 
 	topFrame.title="Alterar"
 	bntInserir['state'] = 'normal'
@@ -89,6 +90,7 @@ def alterarAluno():
 
 def excluirAluno():
 	destroyFrame(topFrame)
+	destroyFrame(footerFrame)
 
 	topFrame.title='Excluir'
 	bntInserir['state'] = 'normal'
@@ -115,6 +117,7 @@ def excluirAluno():
 
 def listarAlunos():
 	destroyFrame(topFrame)
+	destroyFrame(footerFrame)
 
 	topFrame.title='Listar'
 	bntInserir['state'] = 'normal'
@@ -122,22 +125,46 @@ def listarAlunos():
 	bntAlterar['state'] = 'normal'
 	btnConfirmar['state'] = 'disabled'
 
-	ListAlunos = Listbox(topFrame)
-	ListAlunos.insert(1,"Python","PHP")
-	ListAlunos.pack()
+	lblIdAluno = Label(topFrame,text="Id Aluno:",font=('bold'))
+	lblIdAluno.grid(row=1,pady=5)
+
+	#INPUTS
+
+	inpIdAluno = Entry(topFrame,textvariable=idaluno)
+	inpIdAluno.grid(row=1,column=1,pady=5)
+
+	aluno = Alunos()
+	aluno.idaluno = idaluno.get()
+	aluno.buscarAluno
+
+	if(idaluno.get() == ''):
+		tkinter.messagebox.showinfo("Dica", 'Para buscar um aluno na Base de Dados, insira um valor numerico de ID no campo, e pressione o botão Listar')
+
+	destroyFrame(footerFrame)
+	texto = aluno.buscarAluno(aluno.idaluno)
+	if(texto != 'Erro'):
+		media = (float(texto[2])+float(texto[3])+float(texto[4]))/3
+		print(media)
+		texto = "ID: "+ str(texto[0]) + "\nNome: " + str(texto[1]) + "\nNota 1: " + str(texto[2]) +  "\nNota 2: " + str(texto[3]) +  "\nNota 3: " + str(texto[4] + "\nMedia:" +str(media));
+		lblFooter = Label(footerFrame,text=texto,bd=5,fg='white',bg='green')
+	else:
+		texto = 'Aluno não encontrado'
+		lblFooter = Label(footerFrame,text=texto,bd=5,fg='white',bg='red')
+
+	lblFooter.pack()
+
 
 def CRUD():
-	print(topFrame.title)
 	if(topFrame.title == 'Inserir'):
 		aluno = Alunos()
 		aluno.nome = nome.get()
 		aluno.nota1 = nota1.get()
 		aluno.nota2 = nota2.get()
 		aluno.nota3 = nota3.get()
-		print(aluno.nome)
-		print(aluno.nota1)
-		print(aluno.nota2)
-		print(aluno.nota3)
+		aluno.inserirAluno
+		destroyFrame(footerFrame)
+		lblFooter = Label(footerFrame,text=aluno.inserirAluno())
+		lblFooter.pack()
 	elif(topFrame.title == 'Alterar'):
 		aluno = Alunos()
 		aluno.idaluno = idaluno.get()
@@ -145,17 +172,17 @@ def CRUD():
 		aluno.nota1 = nota1.get()
 		aluno.nota2 = nota2.get()
 		aluno.nota3 = nota3.get()
-		print(aluno.idaluno)
-		print(aluno.nome)
-		print(aluno.nota1)
-		print(aluno.nota2)
-		print(aluno.nota3)
+		aluno.atualizarAluno
+		destroyFrame(footerFrame)
+		lblFooter = Label(footerFrame,text=aluno.atualizarAluno())
+		lblFooter.pack()		
 	elif(topFrame.title == 'Excluir'):
 		aluno = Alunos()
 		aluno.idaluno = idaluno.get()
-		print(aluno.idaluno)
-
- 		# aluno.inserirAluno
+		aluno.apagarAluno
+		destroyFrame(footerFrame)
+		lblFooter = Label(footerFrame,text=aluno.apagarAluno())
+		lblFooter.pack()
 
 
 
@@ -188,7 +215,7 @@ footerFrame.pack(side=BOTTOM)
 bntInserir = Button(middleFrame, text='Cadastrar', fg='white', bg='orange',width=10,height=2,command=inserirAluno)
 bntAlterar = Button(middleFrame, text='Alterar', fg='white', bg='blue',width=10,height=2,command=alterarAluno)
 bntExcluir = Button(middleFrame, text='Excluir', fg='white', bg='red',width=10,height=2,command=excluirAluno)
-bntListar = Button(middleFrame, text='Listar',width=10,height=2,command=listarAlunos)
+bntListar = Button(middleFrame, text='Buscar',width=10,height=2,command=listarAlunos)
 btnConfirmar = Button(bottomFrame, text='Confirmar',fg='white',bg='green',width=10,height=2,command=CRUD)
 
 bntInserir.pack(side=LEFT,padx=10)
