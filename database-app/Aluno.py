@@ -23,7 +23,7 @@ class Alunos(object):
         banco = DBAlunos()
         try:
             c = banco.conexao.cursor()
-            c.execute("update alunos set nome = '" + self.nome + "', nota = '" + self.nota + "'")
+            c.execute("update alunos set nome = '" + self.nome + "', nota = '" + self.nota + " where idusuario = " + self.idusuario + "")
             banco.conexao.commit()
             c.close()
             return "Aluno atualizado com sucesso!"
